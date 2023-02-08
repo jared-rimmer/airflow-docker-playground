@@ -45,9 +45,10 @@ them in as environment variables.
 
 Therefore you need to add the following to a .env file in the root of this repository.
 
+```
 DBT_PROFILE_YML="/Users/.../airflow-docker-playground/profiles.yml"
 DBT_SOURCE="/Users/.../airflow-docker-playground/jaffle_shop"
-
+```
 ### Bringing up the services
 
 Before doing this ensure that Docker Desktop is running on your machine.
