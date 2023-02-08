@@ -16,7 +16,7 @@ I made a few additional changes to the docker-compose.yml file based on notes in
 These were:
 
 - Adding `extra_hosts: - "host.docker.internal:host-gateway"` in the airflow-worker service. 
-- Added an additional Postgres database service that would be used by dbt and Great Expectations. Because there are two Postgres instances I changed the port on this to avoid a conflict.
+- Added an additional Postgres database service that would be used by dbt. Because there are two Postgres instances I changed the port on this to avoid a conflict.
 - Added a Docker proxy service in order to use the Airflow DockerOperator to launch Docker images on my local machine.
 
 ### Creating a .env file for setting AIRFLOW_UID
@@ -32,6 +32,21 @@ Add the following too it
 ```yml 
 AIRFLOW_UID=501
 ```
+
+### Adding DBT_PROFILE_YML and DBT_SOURCE to .env for use in Docker Mounts
+
+Rather than baking the dbt project and the profiles.yml files into the Docker image
+I have chosen to load them in as Docker mounts.
+
+Docker mounts require full file paths and do not accept relative file paths.
+
+I did not want to commit a full file path to this repository so opted to load
+them in as environment variables.
+
+Therefore you need to add the following to a .env file in the root of this repository.
+
+DBT_PROFILE_YML="/Users/.../airflow-docker-playground/profiles.yml"
+DBT_SOURCE="/Users/.../airflow-docker-playground/jaffle_shop"
 
 ### Bringing up the services
 

@@ -60,6 +60,8 @@ x-airflow-common:
     AIRFLOW__CORE__LOAD_EXAMPLES: 'true'
     AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth'
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
+    DBT_PROFILE_YML: "${DBT_PROFILE_YML}"
+    DBT_SOURCE: "${DBT_SOURCE}"
   volumes:
     - ./dags:/opt/airflow/dags
     - ./logs:/opt/airflow/logs
@@ -313,6 +315,7 @@ services:
       - "2376:2375"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    hostname: socat
 
 volumes:
   postgres-db-volume:
